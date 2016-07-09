@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: kairosdb
+  namespace: zmon
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kairosdb
+    spec:
+      containers:
+      - name: kairosdb
+        image: registry.opensource.zalan.do/stups/kairosdb:cd30
+        env:
+          - key: KAIROSDB_JETTY_PORT
+            value: 8083
+          - key: KAIROSDB_DATASTORE_CASSANDRA_HOST_LIST
+            value: cassandra.zmon
+        ports:
+        - containerPort: 8083

@@ -13,12 +13,5 @@ spec:
       containers:
       - name: cassandra
         image: registry.opensource.zalan.do/stups/cassandra:2.1.5-1
-        env:
-        - name: POSTGRES_USER
-          value: postgres
-        - name: POSTGRES_PASSWORD
-          value: postgres
-        - name: PGDATA
-          value: /var/lib/postgresql/data
         ports:
         - containerPort: 9160
