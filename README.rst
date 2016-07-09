@@ -13,7 +13,7 @@ Then run:
 
 .. code-block:: bash
 
-  ./deploy.py
+  ./zmon-k8s.py
 
 The generated k8s deployment definitions will be in ``deployments`` folder.
 
