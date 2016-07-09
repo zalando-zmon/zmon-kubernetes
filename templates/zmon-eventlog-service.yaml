@@ -6,7 +6,7 @@ metadata:
 spec:  # specification of the pod's contents
   replicas: 1
   template:
-    meta-data:
+    metadata:
       labels:
         app: zmon-eventlog-service
         version: {{image_version}}
