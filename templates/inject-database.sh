@@ -8,15 +8,16 @@ unzip zmon-controller.zip -d zmon-controller-source
 unzip zmon-eventlog-service.zip -d zmon-eventlog-service-source
 
 export MINIKUBE_IP=$(minikube ip)
+export PGPASSWORD={{admin_password}}
 
-PGPASSWORD={{admin_password}} psql -h $MINIKUBE_IP -p 31088 -U postgres -c "CREATE DATABASE local_zmon_db;" postgres
-PGPASSWORD={{admin_password}} psql -h $MINIKUBE_IP -p 31088 -U postgres -c 'CREATE EXTENSION IF NOT EXISTS hstore;' local_zmon_db
-PGPASSWORD={{admin_password}} psql -h $MINIKUBE_IP -p 31088 -U postgres -c "CREATE ROLE zmon WITH LOGIN PASSWORD '{{postgresql_password}}';" postgres
-PGPASSWORD={{admin_password}} psql -h $MINIKUBE_IP -p 31088 -U postgres -c "ALTER ROLE zmon WITH PASSWORD '{{postgresql_password}}';" postgres
+psql -h $MINIKUBE_IP -p 31088 -U postgres -c "CREATE DATABASE local_zmon_db;" postgres
+psql -h $MINIKUBE_IP -p 31088 -U postgres -c 'CREATE EXTENSION IF NOT EXISTS hstore;' local_zmon_db
+psql -h $MINIKUBE_IP -p 31088 -U postgres -c "CREATE ROLE zmon WITH LOGIN PASSWORD '{{postgresql_password}}';" postgres
+psql -h $MINIKUBE_IP -p 31088 -U postgres -c "ALTER ROLE zmon WITH PASSWORD '{{postgresql_password}}';" postgres
 
-PGPASSWORD={{admin_password}} find "zmon-controller-source/zmon-controller-master/database/zmon" -name '*.sql' \
+find "zmon-controller-source/zmon-controller-master/database/zmon" -name '*.sql' \
                                    | sort \
                                    | xargs cat \
                                    | psql -h $MINIKUBE_IP -p 31088 -U postgres
 
-PGPASSWORD={{admin_password}} psql -h $MINIKUBE_IP -p 31088 -U postgres -f zmon-eventlog-service-source/zmon-eventlog-service-master/database/eventlog/00_create_schema.sql local_zmon_db
+psql -h $MINIKUBE_IP -p 31088 -U postgres -f zmon-eventlog-service-source/zmon-eventlog-service-master/database/eventlog/00_create_schema.sql local_zmon_db
