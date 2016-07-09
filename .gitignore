@@ -1,4 +1,5 @@
 __pycache__
 *.swp
 output
+dependencies/postgresql/deployment.yaml
 deployments/*

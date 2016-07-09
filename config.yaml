@@ -49,3 +49,6 @@ zmon-eventlog-service:
     "POSTGRESQL_HOST": postgresql.zmon
     "POSTGRESQL_DATABASE": local_zmon_db
     "POSTGRESQL_USER": postgres
+
+postgresql:
+  image_version: "9.5.3-1"

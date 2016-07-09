@@ -15,11 +15,34 @@ Then run:
 
   ./zmon-k8s.py
 
-The generated k8s deployment definitions will be in ``deployments`` folder.
-
-The defined services are in the services folder.
-
+This generates all required deployment files.
 
 Note
 ====
-Setting up the dependencies can done by example from the dependency folder. Careful, there are no persistent volumes!!
+
+PostgreSQL and Cassandra do not use persistent volumes!
+
+Deployment
+==========
+
+Dependencies
+------------
+
+.. codeblock:: bash
+
+  kubectl create -f dependencies/cassandra/deployment.yaml
+  kubectl create -f dependencies/cassandra/service.yaml
+
+  kubectl create -f dependencies/kairosdb/deployment.yaml
+  kubectl create -f dependencies/kairosdb/service.yaml
+
+  kubectl create -f dependencies/redis/deployment.yaml
+  kubectl create -f dependencies/redis/service.yaml
+
+  kubectl create -f dependencies/postgresql/deployment.yaml
+  kubectl create -f dependencies/postgresql/service.yaml
+
+
+Now we need to create the database content:
+
+.. codeblock:: bash

@@ -6,29 +6,41 @@ import yaml
 from collections import defaultdict
 from collections import OrderedDict
 
+import uuid
+
 from jinja2 import Environment, PackageLoader
 env = Environment(loader=PackageLoader('zmon-k8s', 'templates'))
 
 stream = open('config.yaml', 'r')
 __CONFIG = yaml.load(stream)
 
-def print_template(application, file_name=None):
+
+def render_template(file_name, config):
+    template = env.get_template(file_name)
+    return template.render(config)
+
+def auto_fill(application, file_name=None, config=None):
     if not file_name:
         file_name = application + ".yaml"
-    template = env.get_template(file_name)
 
-    config = __CONFIG.get(application, None)
+    if not config:
+        config = __CONFIG.get(application, None)
+
     if not config:
         pprint ("Config not found")
         exit(-1)
 
-    return template.render(config)
+    return render_template(file_name, config)
 
 def main():
 
-    token_scheduler = "123456"
-    token_boot_strap = "567890"
-    postgresql_password = "postgres"
+    token_scheduler = str(uuid.uuid4())
+    token_boot_strap = str(uuid.uuid4())
+    postgresql_password = str(uuid.uuid4())
+
+    print("Scheduler Token: {}".format(token_scheduler));
+    print("Scheduler Token: {}".format(token_boot_strap));
+    print("PostgreSQL password: {}".format(postgresql_password));
 
     env_add = defaultdict(dict)
     env_add["zmon-controller"]["PRESHARED_TOKENS_" +token_scheduler+"_UID"] = "zmon-scheduler"
@@ -36,15 +48,34 @@ def main():
     env_add["zmon-controller"]["POSTGRES_PASSWORD"] = postgresql_password
     env_add["zmon-eventlog-service"]["POSTGRESQL_PASSWORD"] = postgresql_password
 
-    for k in __CONFIG:
-        __CONFIG[k]["env_vars"].update(env_add[k])
+    print("updating config variables")
 
     for k in __CONFIG:
-        __CONFIG[k]["env_vars"] = OrderedDict(sorted(__CONFIG[k]["env_vars"].items()))
+        if not "env_var" in __CONFIG[k]:
+            continue
+
+        __CONFIG[k]["env_vars"].update(env_add.get(k, {}))
+
 
     for k in __CONFIG:
+        if not "env_var" in __CONFIG[k]:
+            continue
+
+        __CONFIG[k]["env_vars"] = OrderedDict(sorted(__CONFIG[k].get("env_vars", {}).items()))
+
+    print("generating postgrsql deployment")
+    f = open("dependencies/postgresql/deployment.yaml", "w")
+    f.write(render_template("postgresql-deployment.yaml", {"POSTGRESQL_PASSWORD": postgresql_password}))
+    f.close()
+
+    print("generating templates for zmon components...")
+    for k in __CONFIG:
+        if not k.startswith("zmon-"):
+            continue
+
+        print("\t for {}".format(k))
         f = open("deployments/" + k + ".yaml", 'w')
-        f.write(print_template(k))
+        f.write(auto_fill(k))
         f.close()
 
 
