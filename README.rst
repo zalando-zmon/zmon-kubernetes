@@ -30,14 +30,14 @@ Deployment
 Create Namespace
 ----------------
 
-.. codeblock:: bash
+.. code-block:: bash
 
   kubectl create namespace zmon
 
 Dependencies
 ------------
 
-.. codeblock:: bash
+.. code-block:: bash
 
   kubectl create -f dependencies/cassandra/deployment.yaml
   kubectl create -f dependencies/cassandra/service.yaml
@@ -57,7 +57,7 @@ ZMON Database setup
 
 Now we need to create the database content, clone/download zmon controller for this.
 
-.. codeblock:: bash
+.. code-block:: bash
 
 export MINIKUBE_IP=$(minikube ip)
 
@@ -70,3 +70,15 @@ find -name '*.sql' | sort | xargs cat | psql -h $MINIKUBE_IP -p 31088
 
 ZMON components
 ===============
+
+.. code-block:: bash
+
+  kubectl create -f deployments/zmon-eventlog-service.yaml
+  kubectl create -f services/zmon-eventlog-service.yaml
+
+  kubectl create -f deployments/zmon-controller.yaml
+  kubectl create -f services/zmon-controller-service.yaml
+
+  kubectl create -f deployments/zmon-scheduler.yaml
+
+  kubectl create -f deployments/zmon-worker.yaml
