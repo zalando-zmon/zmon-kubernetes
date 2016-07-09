@@ -9,7 +9,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 9160
-    targetPort: 9160
+  - port: 9042
+    targetPort: 9042
   selector:
     app: cassandra
