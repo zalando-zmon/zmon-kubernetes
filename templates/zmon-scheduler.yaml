@@ -8,15 +8,15 @@ spec:  # specification of the pod's contents
   template:
     metadata:
       labels:
-        app: zmon-controller
+        app: zmon-scheduler
         version: {{image_version}}
     spec:
       containers:
-        - name: zmon-controller
-          image: "registry.opensource.zalan.do/stups/zmon-controller:{{image_version}}"
+        - name: zmon-scheduler
+          image: "registry.opensource.zalan.do/stups/zmon-scheduler:{{image_version}}"
           env: {% for k,v in env_vars.items() %}
           - name: "{{ k }}"
             value: |-
               {{ v }}{% endfor %}
           ports:
-          - containerPort: 443
+          - containerPort: 8080

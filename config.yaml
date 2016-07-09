@@ -31,11 +31,11 @@ zmon-scheduler:
   image_version: "cd99"
   env_vars:
     "MEM_JAVA_PERCENT": 20
-    "SCHEDULER_REDIS_HOST": zmon-redis
+    "SCHEDULER_REDIS_HOST": redis.zmon
     "SCHEDULER_URLS_WITHOUT_REST": true
-    "SCHEDULER_ENTITY_SERVICE_URL": http://zmon-controller.zmon:8080/
+    "SCHEDULER_ENTITY_SERVICE_URL": http://controller.zmon:8080/
     "SCHEDULER_OAUTH2_STATIC_TOKEN": "$SCHEDULER_TOKEN"
-    "SCHEDULER_CONTROLLER_URL": http://zmon-controller.zmon:8080/
+    "SCHEDULER_CONTROLLER_URL": http://controller.zmon:8080/
 
 zmon-eventlog-service:
   image_version: "cd16"

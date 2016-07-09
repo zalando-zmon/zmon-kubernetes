@@ -50,6 +50,7 @@ def main():
     env_add["zmon-controller"]["PRESHARED_TOKENS_" +token_scheduler+"_EXPIRES"] = 1758021422
     env_add["zmon-controller"]["POSTGRES_PASSWORD"] = postgresql_password
     env_add["zmon-eventlog-service"]["POSTGRESQL_PASSWORD"] = postgresql_admin_password
+    env_add["zmon-scheduler"]["SCHEDULER_OAUTH2_STATIC_TOKEN"] = token_scheduler
 
     print("updating config variables")
 
