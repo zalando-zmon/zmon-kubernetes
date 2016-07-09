@@ -9,7 +9,7 @@ from collections import OrderedDict
 from jinja2 import Environment, PackageLoader
 env = Environment(loader=PackageLoader('deploy', 'templates'))
 
-stream = open('zmon_kubernetes_config.yaml', 'r')
+stream = open('config.yaml', 'r')
 __CONFIG = yaml.load(stream)
 
 def print_template(application, file_name=None):
