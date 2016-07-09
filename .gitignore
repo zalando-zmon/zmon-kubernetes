@@ -3,3 +3,7 @@ __pycache__
 output
 dependencies/postgresql/deployment.yaml
 deployments/*
+zmon-controller-source
+zmon-eventlog-service-source
+zmon-controller.zip
+zmon-eventlog-service.zip
