@@ -1,18 +1,18 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: postgres
+  name: cassandra
   namespace: zmon
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: postgres
+        app: cassandra
     spec:
       containers:
-      - name: postgres
-        image: registry.opensource.zalan.do/stups/postgres:9.5.3-1
+      - name: cassandra
+        image: registry.opensource.zalan.do/stups/cassandra:2.1.5-1
         env:
         - name: POSTGRES_USER
           value: postgres
@@ -21,4 +21,4 @@ spec:
         - name: PGDATA
           value: /var/lib/postgresql/data
         ports:
-        - containerPort: 5432
+        - containerPort: 9160

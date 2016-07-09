@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: zmon
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: postgres
+        image: registry.opensource.zalan.do/stups/redis:3.2.0-alpine
+        ports:
+        - containerPort: 6379
