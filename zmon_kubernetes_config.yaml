@@ -1,5 +1,5 @@
 zmon-controller:
-  image_version: "cd159"
+  image_version: "cd367"
   env_vars:
     "SERVER_PORT": "8080"
     "SERVER_SSL_ENABLED": "false"
@@ -11,41 +11,41 @@ zmon-controller:
     "ZMON_OAUTH2_SSO_CLIENT_ID": 64210244ddd8378699d6
     "ZMON_OAUTH2_SSO_CLIENT_SECRET": 48794a58705d1ba66ec9b0f06a3a44ecb273c048
     "ZMON_AUTHORITIES_SIMPLE_ADMINS": "*"
-    "POSTGRES_URL": jdbc:postgresql://postgresql:5432/local_zmon_db
+    "POSTGRES_URL": jdbc:postgresql://postgres.zmon:5432/local_zmon_db
     "POSTGRES_PASSWORD": postgres
     "REDIS_HOST": zmon-redis
     "REDIS_PORT": 6379
     "ENDPOINTS_CORS_ALLOWED_ORIGINS": https://demo.zmon.io
-    "ZMON_EVENTLOG_URL": http://zmon-eventlog-service:8081/
-    "ZMON_KAIROSDB_URL": http://zmon-kairosdb:8083/
-    "ZMON_METRICCACHE_URL": http://zmon-metric-cache:8086/
-    "ZMON_SCHEDULER_URL": http://zmon-scheduler:8085/
+    "ZMON_EVENTLOG_URL": http://eventlog-service.zmon:8081/
+    "ZMON_KAIROSDB_URL": http://kairosdb.zmon:8083/
+    "ZMON_METRICCACHE_URL": http://metric-cache.zmon:8086/
+    "ZMON_SCHEDULER_URL": http://scheduler.zmon:8085/
 
 zmon-worker:
-  image_version: "cd199"
+  image_version: "cd166"
   env_vars:
-    "WORKER_REDIS_SERVERS": zmon-redis:6379
-    "WORKER_KAIROSDB_HOST": zmon-kairosdb
-    "WORKER_METRICCACHE_URL": http://zmon-metric-cache:8086/api/v1/rest-api-metrics/
+    "WORKER_REDIS_SERVERS": redis:6379
+    "WORKER_KAIROSDB_HOST": kairosdb.zmon
+    "WORKER_METRICCACHE_URL": http://metric-cache.zmon:8086/api/v1/rest-api-metrics/
     "WORKER_METRICCACHE_CHECK_ID": 9
-    "WORKER_EVENTLOG_HOST": zmon-eventlog-service
+    "WORKER_EVENTLOG_HOST": eventlog-service.zmon
     "WORKER_EVENTLOG_PORT": 8081
 
 zmon-scheduler:
-  image_version: "cd199"
+  image_version: "cd99"
   env_vars:
     "MEM_JAVA_PERCENT": 20
     "SCHEDULER_REDIS_HOST": zmon-redis
     "SCHEDULER_URLS_WITHOUT_REST": true
-    "SCHEDULER_ENTITY_SERVICE_URL": http://zmon-controller:8080/
+    "SCHEDULER_ENTITY_SERVICE_URL": http://zmon-controller.zmon:8080/
     "SCHEDULER_OAUTH2_STATIC_TOKEN": "$SCHEDULER_TOKEN"
-    "SCHEDULER_CONTROLLER_URL": http://zmon-controller:8080/
+    "SCHEDULER_CONTROLLER_URL": http://zmon-controller.zmon:8080/
 
 zmon-eventlog-service:
-  image_version: "cd200"
+  image_version: "cd16"
   env_vars:
     "SERVER_PORT": 8081
     "MEM_JAVA_PERCENT": 10
-    "POSTGRESQL_HOST": postgresql
+    "POSTGRESQL_HOST": postgresql.zmon
     "POSTGRESQL_DATABASE": local_zmon_db
     "POSTGRESQL_USER": postgres

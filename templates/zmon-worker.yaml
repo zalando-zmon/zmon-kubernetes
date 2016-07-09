@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: Deployment
 metadata:
-  name: zmon-worker-deployment
+  name: worker-deployment
+  namespace: zmon
 spec:  # specification of the pod's contents
   replicas: 2
   template:

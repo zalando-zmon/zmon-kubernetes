@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: eventlog-service
+  namespace: zmon
 spec:
   selector:
     app: zmon-eventlog-service

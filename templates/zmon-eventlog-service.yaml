@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: Deployment
 metadata:
-  name: zmon-eventlog-service-deployment
+  name: eventlog-service-deployment
+  namespace: zmon
 spec:  # specification of the pod's contents
   replicas: 1
   template:
