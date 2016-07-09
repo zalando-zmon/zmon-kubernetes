@@ -70,15 +70,6 @@ ZMON Database setup
 
 .. code-block:: bash
 
-  wget https://github.com/zalando-zmon/zmon-controller/archive/master.zip -O zmon-controller.zip
-  wget https://github.com/zalando-zmon/zmon-eventlog-service/archive/master.zip -O zmon-eventlog-service.zip
-
-  mkdir -p zmon-controller-source
-  mkdir -p zmon-eventlog-service-source
-
-  unzip zmon-controller.zip -d zmon-controller-source
-  unzip zmon-eventlog-service.zip -d zmon-eventlog-service-source
-
   export MINIKUBE_IP=$(minikube ip)
   export PGPASSWORD={{admin_password}}
 
