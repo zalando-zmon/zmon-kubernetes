@@ -7,7 +7,7 @@ from collections import defaultdict
 from collections import OrderedDict
 
 from jinja2 import Environment, PackageLoader
-env = Environment(loader=PackageLoader('deploy', 'templates'))
+env = Environment(loader=PackageLoader('zmon-k8s', 'templates'))
 
 stream = open('config.yaml', 'r')
 __CONFIG = yaml.load(stream)
