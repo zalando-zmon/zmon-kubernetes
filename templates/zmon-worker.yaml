@@ -14,7 +14,6 @@ spec:  # specification of the pod's contents
         - name: zmon-worker
           image: "registry.opensource.zalan.do/stups/zmon-worker:{{image_version}}"
           env: {% for k,v in env_vars.items() %}
-          - key: |-
-              {{ k }}
+          - key: "{{ k }}"
             value: |-
               {{ v }}{% endfor %}

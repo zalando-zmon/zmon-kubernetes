@@ -14,8 +14,7 @@ spec:  # specification of the pod's contents
         - name: zmon-controller
           image: "registry.opensource.zalan.do/stups/zmon-controller:{{image_version}}"
           env: {% for k,v in env_vars.items() %}
-          - key: |-
-              {{ k }}
+          - key: "{{ k }}"
             value: |-
               {{ v }}{% endfor %}
           ports:
