@@ -59,13 +59,13 @@ Now we need to create the database content, clone/download zmon controller for t
 
 .. code-block:: bash
 
-export MINIKUBE_IP=$(minikube ip)
+  export MINIKUBE_IP=$(minikube ip)
 
-cd ~/git/zmon-controller/zmon-controller-master/database/zmon
-psql -h $MINIKUBE_IP -p 31088 -c "CREATE DATABASE local_zmon_db;" postgres
-psql -h $MINIKUBE_IP -p 31088 -c 'CREATE EXTENSION IF NOT EXISTS hstore;'
-psql -h $MINIKUBE_IP -p 31088 -c "CREATE ROLE zmon WITH LOGIN PASSWORD '--secret--';" postgres
-find -name '*.sql' | sort | xargs cat | psql -h $MINIKUBE_IP -p 31088
+  cd ~/git/zmon-controller/zmon-controller-master/database/zmon
+  psql -h $MINIKUBE_IP -p 31088 -c "CREATE DATABASE local_zmon_db;" postgres
+  psql -h $MINIKUBE_IP -p 31088 -c 'CREATE EXTENSION IF NOT EXISTS hstore;'
+  psql -h $MINIKUBE_IP -p 31088 -c "CREATE ROLE zmon WITH LOGIN PASSWORD '--secret--';" postgres
+  find -name '*.sql' | sort | xargs cat | psql -h $MINIKUBE_IP -p 31088
 
 
 ZMON components
