@@ -6,7 +6,7 @@ metadata:
 spec:  # specification of the pod's contents
   replicas: 2
   template:
-    meta-data:
+    metadata:
       labels:
         app: zmon-worker
         version: {{image_version}}

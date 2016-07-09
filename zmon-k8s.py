@@ -34,8 +34,9 @@ def auto_fill(application, file_name=None, config=None):
 
 def main():
 
-    token_scheduler = str(uuid.uuid4())
-    token_boot_strap = str(uuid.uuid4())
+    token_scheduler = str(uuid.uuid4()).replace("-","").upper()
+    token_boot_strap = str(uuid.uuid4()).replace("-","").upper()
+
     postgresql_password = str(uuid.uuid4())
     postgresql_admin_password = str(uuid.uuid4())
 
@@ -48,19 +49,19 @@ def main():
     env_add["zmon-controller"]["PRESHARED_TOKENS_" +token_scheduler+"_UID"] = "zmon-scheduler"
     env_add["zmon-controller"]["PRESHARED_TOKENS_" +token_scheduler+"_EXPIRES"] = 1758021422
     env_add["zmon-controller"]["POSTGRES_PASSWORD"] = postgresql_password
-    env_add["zmon-eventlog-service"]["POSTGRESQL_PASSWORD"] = postgresql_password
+    env_add["zmon-eventlog-service"]["POSTGRESQL_PASSWORD"] = postgresql_admin_password
 
     print("updating config variables")
 
     for k in __CONFIG:
-        if not "env_var" in __CONFIG[k]:
+        if not "env_vars" in __CONFIG[k]:
             continue
 
         __CONFIG[k]["env_vars"].update(env_add.get(k, {}))
 
 
     for k in __CONFIG:
-        if not "env_var" in __CONFIG[k]:
+        if not "env_vars" in __CONFIG[k]:
             continue
 
         __CONFIG[k]["env_vars"] = OrderedDict(sorted(__CONFIG[k].get("env_vars", {}).items()))

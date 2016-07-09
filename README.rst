@@ -81,7 +81,7 @@ ZMON Database setup
   find "zmon-controller-source/zmon-controller-master/database/zmon" -name '*.sql' \
                                      | sort \
                                      | xargs cat \
-                                     | psql -h $MINIKUBE_IP -p 31088 -U postgres
+                                     | psql -h $MINIKUBE_IP -p 31088 -U postgres -d local_zmon_db
 
   psql -h $MINIKUBE_IP -p 31088 -U postgres -f zmon-eventlog-service-source/zmon-eventlog-service-master/database/eventlog/00_create_schema.sql local_zmon_db
 
@@ -92,7 +92,7 @@ ZMON components
 .. code-block:: bash
 
   kubectl create -f deployments/zmon-eventlog-service.yaml
-  kubectl create -f services/zmon-eventlog-service.yaml
+  kubectl create -f services/zmon-eventlog-service-service.yaml
 
   kubectl create -f deployments/zmon-controller.yaml
   kubectl create -f services/zmon-controller-service.yaml

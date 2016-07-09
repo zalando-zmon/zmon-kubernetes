@@ -1,9 +1,7 @@
 zmon-controller:
   image_version: "cd367"
   env_vars:
-    "SERVER_PORT": "8080"
-    "SERVER_SSL_ENABLED": "false"
-    "SERVER_USE_FORWARD_HEADERS": "true"
+    "SERVER_PORT": 443
     "MANAGEMENT_PORT": 8079
     "MANAGEMENT_SECURITY_ENABLED": false
     "MEM_JAVA_PERCENT": 25
@@ -12,10 +10,8 @@ zmon-controller:
     "ZMON_OAUTH2_SSO_CLIENT_SECRET": 48794a58705d1ba66ec9b0f06a3a44ecb273c048
     "ZMON_AUTHORITIES_SIMPLE_ADMINS": "*"
     "POSTGRES_URL": jdbc:postgresql://postgres.zmon:5432/local_zmon_db
-    "POSTGRES_PASSWORD": postgres
-    "REDIS_HOST": zmon-redis
+    "REDIS_HOST": redis.zmon
     "REDIS_PORT": 6379
-    "ENDPOINTS_CORS_ALLOWED_ORIGINS": https://demo.zmon.io
     "ZMON_EVENTLOG_URL": http://eventlog-service.zmon:8081/
     "ZMON_KAIROSDB_URL": http://kairosdb.zmon:8083/
     "ZMON_METRICCACHE_URL": http://metric-cache.zmon:8086/
@@ -46,7 +42,7 @@ zmon-eventlog-service:
   env_vars:
     "SERVER_PORT": 8081
     "MEM_JAVA_PERCENT": 10
-    "POSTGRESQL_HOST": postgresql.zmon
+    "POSTGRESQL_HOST": postgres.zmon
     "POSTGRESQL_DATABASE": local_zmon_db
     "POSTGRESQL_USER": postgres
 
