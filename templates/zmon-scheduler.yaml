@@ -9,7 +9,7 @@ spec:  # specification of the pod's contents
     meta-data:
       labels:
         app: zmon-controller
-        version: {image_version}
+        version: {{image_version}}
     spec:
       containers:
         - name: zmon-controller
