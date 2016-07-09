@@ -9,15 +9,23 @@ Config used is in:
 
   config.yaml
 
-Then run:
+Prepare K8S definitions:
 
 .. code-block:: bash
 
   ./zmon-k8s.py
 
-This generates all required deployment files.
+Next step is to run the printed commands :)
 
-Remember the generated password and tokens.
+Minikube
+========
+
+Check that you give your VM enough resources:
+
+.. code-block:: bash
+
+  minikube start --memory=4000 --cpus=3
+
 
 Note
 ====
