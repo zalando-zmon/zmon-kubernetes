@@ -15,7 +15,7 @@ stream = open('config.yaml', 'r')
 __CONFIG = yaml.load(stream)
 
 
-def render_template(file_name, config):
+def render_template(file_name, config={}):
     template = env.get_template(file_name)
     return template.render(config)
 
@@ -37,10 +37,12 @@ def main():
     token_scheduler = str(uuid.uuid4())
     token_boot_strap = str(uuid.uuid4())
     postgresql_password = str(uuid.uuid4())
+    postgresql_admin_password = str(uuid.uuid4())
 
     print("Scheduler Token: {}".format(token_scheduler));
-    print("Scheduler Token: {}".format(token_boot_strap));
-    print("PostgreSQL password: {}".format(postgresql_password));
+    print("Bootstrap Token: {}".format(token_boot_strap));
+    print("PostgreSQL admin user password: {}".format(postgresql_admin_password));
+    print("PostgreSQL zmon user password: {}".format(postgresql_password));
 
     env_add = defaultdict(dict)
     env_add["zmon-controller"]["PRESHARED_TOKENS_" +token_scheduler+"_UID"] = "zmon-scheduler"
@@ -64,8 +66,11 @@ def main():
         __CONFIG[k]["env_vars"] = OrderedDict(sorted(__CONFIG[k].get("env_vars", {}).items()))
 
     print("generating postgrsql deployment")
+    postgresql_config = __CONFIG.get('postgresql')
+    postgresql_config.update({"postgresql_password": postgresql_admin_password})
+
     f = open("dependencies/postgresql/deployment.yaml", "w")
-    f.write(render_template("postgresql-deployment.yaml", {"POSTGRESQL_PASSWORD": postgresql_password}))
+    f.write(render_template("postgresql-deployment.yaml", postgresql_config))
     f.close()
 
     print("generating templates for zmon components...")
@@ -78,6 +83,17 @@ def main():
         f.write(auto_fill(k))
         f.close()
 
+    print("")
+
+    print(render_template("inject-database.sh", {"POSTGRESQL_PASSWORD": postgresql_password}))
+
+    print("")
+
+    print(render_template("create-dependencies.sh"))
+
+    print("")
+
+    print(render_template("create-zmon-components.sh"))
 
 if __name__ == '__main__':
     main()

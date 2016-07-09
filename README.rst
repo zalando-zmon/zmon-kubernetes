@@ -17,6 +17,8 @@ Then run:
 
 This generates all required deployment files.
 
+Remember the generated password and tokens.
+
 Note
 ====
 
@@ -24,6 +26,13 @@ PostgreSQL and Cassandra do not use persistent volumes!
 
 Deployment
 ==========
+
+Create Namespace
+----------------
+
+.. codeblock:: bash
+
+  kubectl create namespace zmon
 
 Dependencies
 ------------
@@ -43,6 +52,21 @@ Dependencies
   kubectl create -f dependencies/postgresql/service.yaml
 
 
-Now we need to create the database content:
+ZMON Database setup
+===================
+
+Now we need to create the database content, clone/download zmon controller for this.
 
 .. codeblock:: bash
+
+export MINIKUBE_IP=$(minikube ip)
+
+cd ~/git/zmon-controller/zmon-controller-master/database/zmon
+psql -h $MINIKUBE_IP -p 31088 -c "CREATE DATABASE local_zmon_db;" postgres
+psql -h $MINIKUBE_IP -p 31088 -c 'CREATE EXTENSION IF NOT EXISTS hstore;'
+psql -h $MINIKUBE_IP -p 31088 -c "CREATE ROLE zmon WITH LOGIN PASSWORD '--secret--';" postgres
+find -name '*.sql' | sort | xargs cat | psql -h $MINIKUBE_IP -p 31088
+
+
+ZMON components
+===============
