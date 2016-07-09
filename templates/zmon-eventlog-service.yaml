@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: zmon-eventlog-service-deployment
+spec:  # specification of the pod's contents
+  replicas: 1
+  template:
+    meta-data:
+      labels:
+        app: zmon-eventlog-service
+        version: {image_version}
+    spec:
+      containers:
+        - name: zmon-eventlog-service
+          image: "registry.opensource.zalan.do/stups/zmon-eventlog-service:{{image_version}}"
+          env: {% for k,v in env_vars.items() %}
+          - key: |-
+              {{ k }}
+            value: |-
+              {{ v }}{% endfor %}
+          ports:
+          - containerPort: 8080
+            name: zmon-eventlog-service

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: zmon-worker-deployment
+spec:  # specification of the pod's contents
+  replicas: 2
+  template:
+    meta-data:
+      labels:
+        app: zmon-worker
+        version: {image_version}
+    spec:
+      containers:
+        - name: zmon-worker
+          image: "registry.opensource.zalan.do/stups/zmon-worker:{{image_version}}"
+          env: {% for k,v in env_vars.items() %}
+          - key: |-
+              {{ k }}
+            value: |-
+              {{ v }}{% endfor %}
