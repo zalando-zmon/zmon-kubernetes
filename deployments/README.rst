@@ -1,1 +1,3 @@
-This folder will contain deployment defintions created by "deploy.py"
+This folder will contain deployment definitions created by "zmon-k8s.py".
+
+Templates used are in: ``../templates``.
