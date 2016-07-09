@@ -49,4 +49,3 @@ zmon-eventlog-service:
     "POSTGRESQL_HOST": postgresql
     "POSTGRESQL_DATABASE": local_zmon_db
     "POSTGRESQL_USER": postgres
-    "POSTGRESQL_PASSWORD": postgres
