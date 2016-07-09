@@ -7,7 +7,7 @@ Config used is in:
 
 .. code-block:: bash
 
-  zmon_kubernetes_config.yaml
+  config.yaml
 
 Then run:
 
