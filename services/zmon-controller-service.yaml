@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: controller
+spec:
+  type: LoadBalancer
+  selector:
+    app: zmon-controller
+  ports:
+    - port: 443
+      targetPort: 443
+      protocol: TCP

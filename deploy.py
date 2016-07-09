@@ -43,7 +43,7 @@ def main():
         __CONFIG[k]["env_vars"] = OrderedDict(sorted(__CONFIG[k]["env_vars"].items()))
 
     for k in __CONFIG:
-        f = open("output/" + k + ".yaml", 'w')
+        f = open("deployments/" + k + ".yaml", 'w')
         f.write(print_template(k))
         f.close()
 

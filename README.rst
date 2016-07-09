@@ -9,10 +9,12 @@ Config used is in:
 
   zmon_kubernetes_config.yaml
 
-The run:
+Then run:
 
 .. code-block:: bash
 
   ./deploy.py
 
-The generated k8s definitions will be in ``output`` folder.
+The generated k8s deployment definitions will be in ``deployments`` folder.
+
+The defined services are in the services folder.
