@@ -85,11 +85,11 @@ def main():
 
     print("")
 
-    print(render_template("inject-database.sh", {"POSTGRESQL_PASSWORD": postgresql_password}))
+    print(render_template("create-dependencies.sh"))
 
     print("")
 
-    print(render_template("create-dependencies.sh"))
+    print(render_template("inject-database.sh", {"admin_password": postgresql_admin_password, "postgresql_password": postgresql_password}))
 
     print("")
 

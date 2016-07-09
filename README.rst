@@ -54,14 +54,16 @@ Dependencies
 ZMON source download
 ====================
 
-wget https://github.com/zalando-zmon/zmon-controller/archive/master.zip -O zmon-controller.zip
-wget https://github.com/zalando-zmon/zmon-eventlog-service/archive/master.zip -O zmon-eventlog-service.zip
+.. code-block:: bash
 
-mkdir -p zmon-controller-source
-mkdir -p zmon-eventlog-service-source
+  wget https://github.com/zalando-zmon/zmon-controller/archive/master.zip -O zmon-controller.zip
+  wget https://github.com/zalando-zmon/zmon-eventlog-service/archive/master.zip -O zmon-eventlog-service.zip
 
-unzip zmon-controller.zip -d zmon-controller-source
-unzip zmon-eventlog-service.zip -d zmon-eventlog-service-source
+  mkdir -p zmon-controller-source
+  mkdir -p zmon-eventlog-service-source
+
+  unzip zmon-controller.zip -d zmon-controller-source
+  unzip zmon-eventlog-service.zip -d zmon-eventlog-service-source
 
 ZMON Database setup
 ===================

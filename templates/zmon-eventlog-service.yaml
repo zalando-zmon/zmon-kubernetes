@@ -15,9 +15,8 @@ spec:  # specification of the pod's contents
         - name: zmon-eventlog-service
           image: "registry.opensource.zalan.do/stups/zmon-eventlog-service:{{image_version}}"
           env: {% for k,v in env_vars.items() %}
-          - key: "{{ k }}"
+          - name: "{{ k }}"
             value: |-
               {{ v }}{% endfor %}
           ports:
           - containerPort: 8080
-            name: zmon-eventlog-service
