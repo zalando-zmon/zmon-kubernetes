@@ -10,5 +10,6 @@ spec:
   ports:
   - port: 8083
     targetPort: 8083
+    nodePort: 31083
   selector:
     app: kairosdb

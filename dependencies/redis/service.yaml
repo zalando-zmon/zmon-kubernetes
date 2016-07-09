@@ -6,9 +6,10 @@ metadata:
   labels:
     app: redis
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
   - port: 6379
     targetPort: 6379
+    nodePort: 31086
   selector:
     app: redis
