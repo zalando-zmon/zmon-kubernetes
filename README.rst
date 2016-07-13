@@ -78,20 +78,21 @@ ZMON Database setup
 
 .. code-block:: bash
 
-  export MINIKUBE_IP=$(minikube ip)
-  export PGPASSWORD={{admin_password}}
+    export POSTGRES_NODE_IP=$(minikube ip)
+    export POSTGRES_NODE_PORT=31088
+    export PGPASSWORD={{admin_password}}
 
-  psql -h $MINIKUBE_IP -p 31088 -U postgres -c "CREATE DATABASE local_zmon_db;" postgres
-  psql -h $MINIKUBE_IP -p 31088 -U postgres -c 'CREATE EXTENSION IF NOT EXISTS hstore;' local_zmon_db
-  psql -h $MINIKUBE_IP -p 31088 -U postgres -c "CREATE ROLE zmon WITH LOGIN PASSWORD '{{postgresql_password}}';" postgres
-  psql -h $MINIKUBE_IP -p 31088 -U postgres -c "ALTER ROLE zmon WITH PASSWORD '{{postgresql_password}}';" postgres
+    psql -h $POSTGRES_NODE_IP -p $POSTGRES_NODE_PORT -U postgres -c "CREATE DATABASE local_zmon_db;" postgres
+    psql -h $POSTGRES_NODE_IP -p $POSTGRES_NODE_PORT -U postgres -c 'CREATE EXTENSION IF NOT EXISTS hstore;' local_zmon_db
+    psql -h $POSTGRES_NODE_IP -p $POSTGRES_NODE_PORT -U postgres -c "CREATE ROLE zmon WITH LOGIN PASSWORD '{{postgresql_password}}';" postgres
+    psql -h $POSTGRES_NODE_IP -p $POSTGRES_NODE_PORT -U postgres -c "ALTER ROLE zmon WITH PASSWORD '{{postgresql_password}}';" postgres
 
-  find "zmon-controller-source/zmon-controller-master/database/zmon" -name '*.sql' \
-                                     | sort \
-                                     | xargs cat \
-                                     | psql -h $MINIKUBE_IP -p 31088 -U postgres -d local_zmon_db
+    find "zmon-controller-source/zmon-controller-master/database/zmon" -name '*.sql' \
+                                       | sort \
+                                       | xargs cat \
+                                       | psql -h $POSTGRES_NODE_IP -p $POSTGRES_NODE_PORT -U postgres -d local_zmon_db
 
-  psql -h $MINIKUBE_IP -p 31088 -U postgres -f zmon-eventlog-service-source/zmon-eventlog-service-master/database/eventlog/00_create_schema.sql local_zmon_db
+    psql -h $POSTGRES_NODE_IP -p $POSTGRES_NODE_PORT -U postgres -f zmon-eventlog-service-source/zmon-eventlog-service-master/database/eventlog/00_create_schema.sql local_zmon_db
 
 
 ZMON components
