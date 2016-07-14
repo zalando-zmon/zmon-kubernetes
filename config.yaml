@@ -9,7 +9,6 @@ zmon-controller:
     "ZMON_OAUTH2_SSO_CLIENT_ID": 09e23127316d4764f324
     "ZMON_OAUTH2_SSO_CLIENT_SECRET": d7b55e00f9ab7a1fc99f902df53c4baa4a013e25
     "ZMON_AUTHORITIES_SIMPLE_ADMINS": "*"
-    "POSTGRES_USERNAME": "zmon"
     "POSTGRES_URL": jdbc:postgresql://postgres.zmon:5432/local_zmon_db
     "REDIS_HOST": redis.zmon
     "REDIS_PORT": 6379
