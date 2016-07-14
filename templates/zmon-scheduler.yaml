@@ -19,4 +19,4 @@ spec:  # specification of the pod's contents
             value: |-
               {{ v }}{% endfor %}
           ports:
-          - containerPort: 8080
+          - containerPort: 8085
