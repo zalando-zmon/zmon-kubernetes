@@ -107,5 +107,6 @@ ZMON components
   kubectl create -f services/zmon-controller-service.yaml
 
   kubectl create -f deployments/zmon-scheduler.yaml
+  kubectl create -f services/zmon-scheduler-service.yaml
 
   kubectl create -f deployments/zmon-worker.yaml

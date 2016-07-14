@@ -9,6 +9,7 @@ zmon-controller:
     "ZMON_OAUTH2_SSO_CLIENT_ID": 09e23127316d4764f324
     "ZMON_OAUTH2_SSO_CLIENT_SECRET": d7b55e00f9ab7a1fc99f902df53c4baa4a013e25
     "ZMON_AUTHORITIES_SIMPLE_ADMINS": "*"
+    "POSTGRES_USERNAME": "zmon"
     "POSTGRES_URL": jdbc:postgresql://postgres.zmon:5432/local_zmon_db
     "REDIS_HOST": redis.zmon
     "REDIS_PORT": 6379
@@ -16,6 +17,7 @@ zmon-controller:
     "ZMON_KAIROSDB_URL": http://kairosdb.zmon:8083/
     "ZMON_METRICCACHE_URL": http://metric-cache.zmon:8086/
     "ZMON_SCHEDULER_URL": http://scheduler.zmon:8085/
+    "ZMON_TEAMS_SIMPLE_DEFAULT_TEAM": "ZMON"
 
 zmon-worker:
   image_version: "cd166"
