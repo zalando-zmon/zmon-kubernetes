@@ -27,6 +27,7 @@ zmon-worker:
     "WORKER_METRICCACHE_CHECK_ID": 9
     "WORKER_EVENTLOG_HOST": eventlog-service.zmon
     "WORKER_EVENTLOG_PORT": 8081
+    "WORKER_PLUGIN_SQL_USER": "zmon"
 
 zmon-scheduler:
   image_version: "cd99"

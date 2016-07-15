@@ -48,9 +48,12 @@ def main():
     env_add = defaultdict(dict)
     env_add["zmon-controller"]["PRESHARED_TOKENS_" +token_scheduler+"_UID"] = "zmon-scheduler"
     env_add["zmon-controller"]["PRESHARED_TOKENS_" +token_scheduler+"_EXPIRES"] = 1758021422
-    #needs a fix to zmon user later
+
     env_add["zmon-controller"]["POSTGRES_USERNAME"] = "postgres"
     env_add["zmon-controller"]["POSTGRES_PASSWORD"] = postgresql_admin_password
+
+    # set unprivileged user for zmon worker accese as example
+    env_add["zmon-worker"]["WORKER_PLUGIN_SQL_PASS"] = postgresql_password
 
     env_add["zmon-eventlog-service"]["POSTGRESQL_PASSWORD"] = postgresql_admin_password
 
