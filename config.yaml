@@ -1,5 +1,5 @@
 zmon-controller:
-  image_version: "cd367"
+  image_version: "cd379"
   env_vars:
     "SERVER_PORT": 443
     "MANAGEMENT_PORT": 8079
@@ -19,7 +19,7 @@ zmon-controller:
     "ZMON_TEAMS_SIMPLE_DEFAULT_TEAM": "ZMON"
 
 zmon-worker:
-  image_version: "cd166"
+  image_version: "cd176"
   env_vars:
     "WORKER_REDIS_SERVERS": redis:6379
     "WORKER_KAIROSDB_HOST": kairosdb.zmon
@@ -30,7 +30,7 @@ zmon-worker:
     "WORKER_PLUGIN_SQL_USER": "zmon"
 
 zmon-scheduler:
-  image_version: "cd99"
+  image_version: "cd102"
   env_vars:
     "MEM_JAVA_PERCENT": 20
     "SCHEDULER_REDIS_HOST": redis.zmon
