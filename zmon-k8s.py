@@ -47,7 +47,7 @@ def main():
 
     env_add = defaultdict(dict)
     env_add["zmon-controller"]["PRESHARED_TOKENS_" +token_scheduler+"_UID"] = "zmon-scheduler"
-    env_add["zmon-controller"]["PRESHARED_TOKENS_" +token_scheduler+"_EXPIRES"] = 1758021422
+    env_add["zmon-controller"]["PRESHARED_TOKENS_" +token_scheduler+"_EXPIRES_AT"] = 1758021422
 
     env_add["zmon-controller"]["POSTGRES_USERNAME"] = "postgres"
     env_add["zmon-controller"]["POSTGRES_PASSWORD"] = postgresql_admin_password
