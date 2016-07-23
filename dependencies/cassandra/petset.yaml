@@ -1,0 +1,64 @@
+apiVersion: apps/v1alpha1
+kind: PetSet
+metadata:
+  name: cassandra
+  namespace: zmon
+spec:
+  serviceName: cassandra
+  replicas: 2
+  template:
+    metadata:
+      annotations:
+        pod.alpha.kubernetes.io/initialized: "true"
+      labels:
+        app: cassandra-data
+    spec:
+      containers:
+      - name: cassandra
+        image: registry.opensource.zalan.do/stups/planb-cassandra:cd60
+        ports:
+        - containerPort: 9042
+          name: cql
+        - containerPort: 7000
+          name: intra-node
+        - containerPort: 7199
+          name: jmx
+        env:
+        - name: ADMIN_PASSWORD
+          value: admin_password
+        - name: CLUSTER_SIZE
+          value: "2"
+        - name: CLUSTER_NAME
+          value: zmon-cassandra-01
+        - name: SEEDS
+          value: cassandra-0.cassandra.zmon.svc.cluster.local,cassandra-1.cassandra.zmon.svc.cluster.local
+        - name: SNITCH
+          value: SimpleSnitch
+        - name: SUBNET_TYPE
+          value: internal
+        - name: KEYSTORE
+          value: |-
+             /u3+7QAAAAIAAAABAAAAAQAFcGxhbmIAAAFWF/Xj4gAABQAwggT8MA4GCisGAQQBKgIRAQEFAASCBOjDWX/yWJYoXjWWr2WDzNciy94IsYEoLzlaJOdtXOoZWzQwneqj9K7fhAIlPv14DQQVtRGSUhAymyvDz9gdVvuvYxAcBOw7F21yT5yJh7NFZGSUz4/L6JZGmJsVJIZFQIBF9VB9HJiLtbZZc64b4JpEWDRSljsC0sRKWm2q6n7cAljPadhAS8OniqYeRrqxvg/fxZMzKi1IkVAdd3kLPWbt6V6Hw918S3S/0f9E/HkipadP6GWEnFk9pYZc38inUCtt8rNgDLzJsoousyI/tuyNT+vBlHoq0TYkToi0QA0vTpLuvwQ3TT1PLqjIovfbpXPa6wXSdH+NUBg/qEsajKiR0AulaLsA2WpkPpf42RgbAfUudG2qNSZUkVpsEiqUNlMb1uk8bO2dGA6UWu65A9WVfO08Je6qX1SbbQnusj6LqqEn3ca2D+q65MivZTs1C50fVqCtTJmluOGPaitHDc5Mg9hsSdPULQHUmh5pq6njC/ty1kMN649f9HeFBm5PQvUiE2x6IEoE/1kvx5WqwoZ5UZqPb4ts16m4eVSyg0k0AODiOvPTAFhx+/rmJ9RONdVNCg66TANcnSRKx5sbBP5B/gp9EYwAd25uIvsTmwvwQst+BbNs02XBdEplF/2eeZod5Ogjd/HpQdo4MRbN+M0IG4fKNl1uhiUsm3WxywDHDN9llvacZr8ENWp25GTcaqqhCJHRJhzLJAW2SQgADeNqivMCbYh4nEoD1/Lmj2JAqow6A9myZozyOyB4k1hYXpZZoGl10uMxA5IzQQheO4SYJub6azOWk2xbLqlKf6jCs6odjb73a2Osd4KcDvhgIjv7yIv/AQGH5IW+JE8vtPHMyvFJ4OvDjSH+XhOSsAbe8RC6gwp+QFBwxqmMZazV2yFYd9Go72yaLBkpyGAocRznR1dQ/tS9BXJ9xSa9a0+N48qpFHhvK2rYEhoUmUWJq5h53yYFL7IU5MrYoz7Ux6mwaNSgBhqsk1c1mevxkhhBgKwg4svy+J8mujRqfeo2jML6b4lRnbclXDh0sp2iktekPBNGGcvqODbeb/LpuSOaSO+0eYiJuHv0G0g/TTaZRLvuyVVDqMLRjEK7snPL5O5Q3X3hXMX7xw1+T1L5sqFl8e+QdQ2lRO8evy9t/ipmiehp+WyZYRJgsULYfZLvDQtHUm1gDowGd8Kt8uosv8l1onrOEUQ2u4wzdp/1EG5IDuilmdQp+qjjG6i8B2k6KSQZ58nDoN1Bech9PxYG9m2OVZ20QY2omZ3z/Zl0diYda98AkE+SPp3m0MSA1DKX9bHNfO72XZYDrIriPmDgyABa/bbm3V7RB/LMjJ2IL863lItaw6PMWeo7jYdWzxZfXPh7iWvrA9foO5Ofd23cRwOMZPHUDG2eg1WsSKDWJSDmJYXzLuF5aUffs83Txz/h6G+WSLn2ZnW2UdIn4tsoeJBILYx5UQguTdd0vbf5eaVXNdiZ4u++mN052DlZp3rfBiS0A8MZ0eNTnYl38X6u2yW4i9qKWMLwMdOY8aBU/C0xtmmJO/YZcLyvJ7FY8l4U2xjeE+r/PDQM2DYMDTXob95IEmU+I64zBOjAyvZEtJD7+/NlCmPhLYAulIr7W0/OQQyUSjJYYXJFo8Vezd0t/FVgF3WPPvEcGWxLDAfW/n4TIKPJ17pzDHEsgQAAAAEABVguNTA5AAADWTCCA1UwggI9oAMCAQICBHWXyggwDQYJKoZIhvcNAQELBQAwWjEUMBIGA1UEAxMLemFsYW5kby5uZXQxEzARBgNVBAoTClphbGFuZG8gU0UxDzANBgNVBAcTBkJlcmxpbjEPMA0GA1UECBMGQmVybGluMQswCQYDVQQGEwJERTAgFw0xNjA3MjMxMzMzMjVaGA8yMTE1MDIxNTEzMzMyNVowWjEUMBIGA1UEAxMLemFsYW5kby5uZXQxEzARBgNVBAoTClphbGFuZG8gU0UxDzANBgNVBAcTBkJlcmxpbjEPMA0GA1UECBMGQmVybGluMQswCQYDVQQGEwJERTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK6DUDx8SaPtkiMkVbVZdEDWQsyhZheqisyJFkq562eDxcr84SU/c+GRHDHK49C615HBkA+EJRgEthXzUyObW1twfufW7Cem0GDSgSw6f0PqyQa2dpZVwQXnfOujW8fjpRkmyZaHt1+yCeoF2M2CZ5iKjhqCcxToKR5cCQSfewWKsAY+xwvdlO8X2rkPUS6qoBnaDweKVCpPdsYfr0YK8kbZrCdedQNO5gN3jDzvdC9MWSE5jGqAKYEdZ6HoQ9loRgBUEF/LRRKUG0pKCBNKi+yHMeLDogmZoDnfemDHmfa3lzv1o0kaCfZ4OTggrSoSo1OoZi/ewD42lqcO5u/0Z7cCAwEAAaMhMB8wHQYDVR0OBBYEFL+4QbJq2BBv4CAdGNlGW0mLeaeiMA0GCSqGSIb3DQEBCwUAA4IBAQBkcSaS0TgUlsXL4lSCxs4PZ1K9Vqu+0stEeBst/NUzE3PdoLB4s/8z+5D0HPy4XnA5BuHCu15Wtrlcqw4oZAnPLWPlRw9QIkDmJVV/XCAtglxRGuJ7SIqKAEMjVYBhfHsVqrvbozQbVa6JveRpLqdHuGbND9gtOsvgSa6Vk+lsEanOdLqz515strJw3sPXaTyUxz0tivxTmbXVOdOxsdgrOsY0QBrXCrXsynvY3b5FrbRocnj8JJwM0m3gG1OxnXFMR1wjayvuP0G2f17Csm/+XLzKcPALJG2Vkp8LisNQ2mVpprr+LOhbVC882EJsMMiTxaLcD3LrON0MoEN9qdQhwEIX98cygaPeenkIGCVQaq43w/M=
+        - name: TRUSTSTORE
+          value: |-
+             /u3+7QAAAAIAAAABAAAAAgAFcGxhbmIAAAFWF/XkygAFWC41MDkAAANZMIIDVTCCAj2gAwIBAgIEdZfKCDANBgkqhkiG9w0BAQsFADBaMRQwEgYDVQQDEwt6YWxhbmRvLm5ldDETMBEGA1UEChMKWmFsYW5kbyBTRTEPMA0GA1UEBxMGQmVybGluMQ8wDQYDVQQIEwZCZXJsaW4xCzAJBgNVBAYTAkRFMCAXDTE2MDcyMzEzMzMyNVoYDzIxMTUwMjE1MTMzMzI1WjBaMRQwEgYDVQQDEwt6YWxhbmRvLm5ldDETMBEGA1UEChMKWmFsYW5kbyBTRTEPMA0GA1UEBxMGQmVybGluMQ8wDQYDVQQIEwZCZXJsaW4xCzAJBgNVBAYTAkRFMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAroNQPHxJo+2SIyRVtVl0QNZCzKFmF6qKzIkWSrnrZ4PFyvzhJT9z4ZEcMcrj0LrXkcGQD4QlGAS2FfNTI5tbW3B+59bsJ6bQYNKBLDp/Q+rJBrZ2llXBBed866Nbx+OlGSbJloe3X7IJ6gXYzYJnmIqOGoJzFOgpHlwJBJ97BYqwBj7HC92U7xfauQ9RLqqgGdoPB4pUKk92xh+vRgryRtmsJ151A07mA3eMPO90L0xZITmMaoApgR1noehD2WhGAFQQX8tFEpQbSkoIE0qL7Icx4sOiCZmgOd96YMeZ9reXO/WjSRoJ9ng5OCCtKhKjU6hmL97APjaWpw7m7/RntwIDAQABoyEwHzAdBgNVHQ4EFgQUv7hBsmrYEG/gIB0Y2UZbSYt5p6IwDQYJKoZIhvcNAQELBQADggEBAGRxJpLROBSWxcviVILGzg9nUr1Wq77Sy0R4Gy381TMTc92gsHiz/zP7kPQc/LhecDkG4cK7Xla2uVyrDihkCc8tY+VHD1AiQOYlVX9cIC2CXFEa4ntIiooAQyNVgGF8exWqu9ujNBtVrom95Gkup0e4Zs0P2C06y+BJrpWT6WwRqc50urPnXmy2snDew9dpPJTHPS2K/FOZtdU507Gx2Cs6xjRAGtcKtezKe9jdvkWttGhyePwknAzSbeAbU7GdcUxHXCNrK+4/QbZ/XsKyb/5cvMpw8AskbZWSnwuKw1DaZWmmuv4s6FtULzzYQmwwyJPFotwPcus43QygQ32p1CFnJENsfjzVmvzAH/ymwr1Zac+Nhw==
+        - name: REGIONS
+          value: europe-west1
+        - name: LISTEN_ADDRESS
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+
+        volumeMounts:
+        - name: cassandra-data4
+          mountPath: /var/lib/cassandra
+  volumeClaimTemplates:
+  - metadata:
+      name: cassandra-data4
+      annotations:
+        volume.alpha.kubernetes.io/storage-class: anything
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10Gi

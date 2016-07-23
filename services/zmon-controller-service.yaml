@@ -4,7 +4,7 @@ metadata:
   name: controller
   namespace: zmon
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: zmon-controller
   ports:
