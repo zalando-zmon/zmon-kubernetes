@@ -116,3 +116,9 @@ ZMON components
   kubectl create -f services/zmon-scheduler-service.yaml
 
   kubectl create -f deployments/zmon-worker.yaml
+
+GCE LB
+======
+
+Add firewall rule to allow traffic and health check from IP range: 130.211.0.0/22
+
