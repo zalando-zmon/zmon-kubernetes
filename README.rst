@@ -41,6 +41,12 @@ Create Namespace
 .. code-block:: bash
 
   kubectl create namespace zmon
+  
+If you want use the following command to set the default namespace:
+
+.. code-block:: bash
+
+  kubectl config set-context minikube --namespace=zmon
 
 Dependencies
 ------------
