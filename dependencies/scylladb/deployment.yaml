@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cassandra
+  namespace: zmon
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cassandra
+    spec:
+      containers:
+      - name: cassandra
+        image: registry.opensource.zalan.do/stups/scylla:1.3.0rc4
+        ports:
+        - containerPort: 9042
+          name: cql
+        - containerPort: 7000
+          name: intra-node
+        - containerPort: 7199
+          name: jmx
+        env:
+          LISTEN_ADDRESS:
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
