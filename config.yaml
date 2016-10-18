@@ -1,14 +1,10 @@
 zmon-controller:
-  image_version: "cd379"
+  image_version: "cd"
   env_vars:
     "SERVER_PORT": 443
     "MANAGEMENT_PORT": 8079
     "MANAGEMENT_SECURITY_ENABLED": false
     "MEM_JAVA_PERCENT": 25
-    "SPRING_PROFILES_ACTIVE": github
-    "ZMON_OAUTH2_SSO_CLIENT_ID": 09e23127316d4764f324
-    "ZMON_OAUTH2_SSO_CLIENT_SECRET": d7b55e00f9ab7a1fc99f902df53c4baa4a013e25
-    "ZMON_AUTHORITIES_SIMPLE_ADMINS": "*"
     "POSTGRES_URL": jdbc:postgresql://postgres.zmon:5432/local_zmon_db
     "REDIS_HOST": redis.zmon
     "REDIS_PORT": 6379
@@ -16,7 +12,13 @@ zmon-controller:
     "ZMON_KAIROSDB_URL": http://kairosdb.zmon:8083/
     "ZMON_METRICCACHE_URL": http://metric-cache.zmon:8086/
     "ZMON_SCHEDULER_URL": http://scheduler.zmon:8085/
+    "SPRING_PROFILES_ACTIVE": github
+    "ZMON_OAUTH2_SSO_CLIENT_ID": 09e23127316d4764f324
+    "ZMON_OAUTH2_SSO_CLIENT_SECRET": d7b55e00f9ab7a1fc99f902df53c4baa4a013e25
+    "ZMON_AUTHORITIES_SIMPLE_ADMINS": "*"
     "ZMON_TEAMS_SIMPLE_DEFAULT_TEAM": "ZMON"
+    # "ZMON_SIGNUP_GITHUB_ALLOWED_USERS": "*"
+    # "ZMON_SIGNUP_GITHUB_ALLOWED_ORGAS": "*"
 
 zmon-worker:
   image_version: "cd176"
