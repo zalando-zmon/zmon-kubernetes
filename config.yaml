@@ -1,5 +1,5 @@
 zmon-controller:
-  image_version: "cd"
+  image_version: "cd432"
   env_vars:
     "SERVER_PORT": 443
     "MANAGEMENT_PORT": 8079
