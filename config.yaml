@@ -1,5 +1,5 @@
 zmon-controller:
-  image_version: "cd432"
+  image_version: "cd450"
   env_vars:
     "SERVER_PORT": 443
     "MANAGEMENT_PORT": 8079
@@ -21,7 +21,7 @@ zmon-controller:
     # "ZMON_SIGNUP_GITHUB_ALLOWED_ORGAS": "*"
 
 zmon-worker:
-  image_version: "cd176"
+  image_version: "cd215"
   env_vars:
     "WORKER_REDIS_SERVERS": redis:6379
     "WORKER_KAIROSDB_HOST": kairosdb.zmon
@@ -32,7 +32,7 @@ zmon-worker:
     "WORKER_PLUGIN_SQL_USER": "zmon"
 
 zmon-scheduler:
-  image_version: "cd102"
+  image_version: "cd110"
   env_vars:
     "MEM_JAVA_PERCENT": 20
     "SCHEDULER_REDIS_HOST": redis.zmon

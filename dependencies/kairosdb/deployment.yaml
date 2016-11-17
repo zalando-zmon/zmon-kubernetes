@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: kairosdb
-        image: registry.opensource.zalan.do/stups/kairosdb:cd30
+        image: registry.opensource.zalan.do/stups/kairosdb:cd88
         env:
         - name: KAIROSDB_JETTY_PORT
           value: "8083"

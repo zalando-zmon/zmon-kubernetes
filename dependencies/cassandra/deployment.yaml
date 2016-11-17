@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: cassandra
-        image: registry.opensource.zalan.do/stups/cassandra:2.1.5-1
+        image: cassandra:3.9
         ports:
         - containerPort: 9042
           name: cql

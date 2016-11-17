@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: cassandra
-        image: registry.opensource.zalan.do/stups/planb-cassandra:cd60
+        image: registry.opensource.zalan.do/stups/planb-cassandra-3:cd106
         ports:
         - containerPort: 9042
           name: cql
