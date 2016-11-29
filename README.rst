@@ -41,7 +41,7 @@ Create Namespace
 .. code-block:: bash
 
   kubectl create namespace zmon
-  
+
 If you want use the following command to set the default namespace:
 
 .. code-block:: bash
@@ -117,8 +117,18 @@ ZMON components
 
   kubectl create -f deployments/zmon-worker.yaml
 
+
+Connecting
+==========
+
+Depending on how you run minikube:
+
+.. code-block:: bash
+
+  kubectl get pods --namespace zmon
+  kubectl port-forward <controller pod id> 8443:443  --namespace zmon
+
 GCE LB
 ======
 
 Add firewall rule to allow traffic and health check from IP range: 130.211.0.0/22
-
